@@ -8,7 +8,7 @@ console.log(keys)
 //   });
 
 var input = process.argv[2]
-var input = process.argv[3]
+var input2 = process.argv[3]
 
 
 if (input == "concert-this") {
@@ -36,13 +36,23 @@ var spotify = new Spotify({
   secret: keys.spotify.secret
 });
  
-spotify.search({ type: 'track', query: 'All the Small Things' }, function(err, data) {
-  if (err) {
-    return console.log('Error occurred: ' + err);
-  }
+// spotify.search({ type: 'track', query: 'All the Small Things' }, function(err, data) {
+//   if (err) {
+//     return console.log('Error occurred: ' + err);
+//   }
  
-console.log(data);  
-});
+// console.log(data);  
+// });
+
+
+spotify
+  .request('https://api.spotify.com/v1/tracks/7yCPwWs66K8Ba5lFuU2bcx')
+  .then(function(data) {
+    console.log(data); 
+  })
+  .catch(function(err) {
+    console.error('Error occurred: ' + err); 
+  });
 
 const axios = require('axios');
 
@@ -50,7 +60,7 @@ const axios = require('axios');
 
 
  omdbiKey = keys.omdbi.id
- movieName = "titanic"
+ const movieName = input
 
  
 
