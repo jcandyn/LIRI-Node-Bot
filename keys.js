@@ -5,3 +5,7 @@ exports.spotify = {
   secret: process.env.SPOTIFY_SECRET
 };
 
+exports.omdbi = {
+  id: process.env.omdbi
+}
+
