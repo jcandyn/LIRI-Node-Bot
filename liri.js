@@ -128,26 +128,6 @@ function concert() {
     console.log("Country: " + response.data[i].venue.country);
     console.log("---------------------------------------------------------------")
     console.log("City: " + response.data[i].venue.city);
-
-    // console.log("---------------------------------------------------------------")
-    // console.log("something agents" + response.Agent._events);
-   
-    // console.log("---------------------------------------------------------------")
-    // console.log("Name of the Movie: " + response.data.Title)
-    // console.log("---------------------------------------------------------------")
-    // console.log("Released Date: " + response.data.Released)
-    // console.log("---------------------------------------------------------------")
-    // console.log("IMDB Rating: " + response.data.Ratings.imdbRating)
-    // console.log("---------------------------------------------------------------")
-    // // console.log("Rotten Tomatoes Rating: " + response.data.Ratings.imdbRating)
-    // console.log("Where it was produced: " + response.data.Country)
-    // console.log("---------------------------------------------------------------")
-    // console.log("Language: " + response.data.Language)
-    // console.log("---------------------------------------------------------------")
-    // console.log("Plot: " + response.data.Plot)
-    // console.log("---------------------------------------------------------------")
-    // console.log("Actors: " + response.data.Actors)
-    // console.log("---------------------------------------------------------------")
     }
   }
   })
