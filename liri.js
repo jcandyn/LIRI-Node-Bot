@@ -108,6 +108,10 @@ function concert() {
   .then(function (response) {
     // handle success
     console.log(response.data)
+    if (response.data.length == 0) {
+        console.log("Sorry, there seems to be no events for that artist. Try a new search!")
+    }
+    else if (response.data.length > 0) {
     for (i=0; i<response.data.length; i++) {
 //  console.log(response.data)
     // console.log("Whole response " + response);
@@ -145,6 +149,7 @@ function concert() {
     // console.log("Actors: " + response.data.Actors)
     // console.log("---------------------------------------------------------------")
     }
+  }
   })
   .catch(function (error) {
     // handle error
