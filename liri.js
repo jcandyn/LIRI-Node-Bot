@@ -1,13 +1,13 @@
 require("dotenv").config();
 var keys = require("./keys.js");
-console.log(keys)
+
 
 var input = process.argv[2]
 var input2 = process.argv[3]
 
 
 if (input == "concert-this") {
-
+  movieOrBands(input2)
 }
 
 else if (input == "spotify-this-song") {
@@ -15,7 +15,7 @@ spotify(input2)
 }
 
 else if (input == "movie-this") {
-movie(input2)
+movieOrBands(input2)
 }
 
 else if (input == "do-what-it-says") {
@@ -53,14 +53,22 @@ console.log("---------------------------------------------------------------")
 });
 }
 
-function movie(movie) {
+function movieOrBands(input2) {
 const axios = require('axios');
 
 // OMDBI
+if (input === "movie-this") {
+  movie()
+}
+
+else if (input === "concert-this") {
+  concert()
+}
+function movie() {
 
  omdbiKey = keys.omdbi.id
 
-axios.get("http://www.omdbapi.com/?t=" + movie + "&apikey=" + omdbiKey)
+axios.get("http://www.omdbapi.com/?t=" + input2 + "&apikey=" + omdbiKey)
   .then(function (response) {
     // handle success
     // console.log(response);
@@ -92,4 +100,58 @@ axios.get("http://www.omdbapi.com/?t=" + movie + "&apikey=" + omdbiKey)
     // always executed
   });
 
+}
+
+function concert() {
+  console.log("band call working")
+  axios.get("https://rest.bandsintown.com/artists/" + input2 + "/events?app_id=codingbootcamp")
+  .then(function (response) {
+    // handle success
+    console.log(response.data)
+    for (i=0; i<response.data.length; i++) {
+//  console.log(response.data)
+    // console.log("Whole response " + response);
+    // console.log("Offers array" + response.data.offers[i]);
+    console.log("---------------------------------------------------------------")
+    console.log("--------------------------CONCERTS-----------------------------")
+    console.log("---------------------------------------------------------------")
+    console.log("Lineup: " + response.data[i].lineup);
+    console.log("---------------------------------------------------------------")
+    console.log("Date: " + response.data[i].datetime);
+    console.log("---------------------------------------------------------------")
+    console.log("Venue: " + response.data[i].venue.name);
+    console.log("---------------------------------------------------------------")
+    console.log("Country: " + response.data[i].venue.country);
+    console.log("---------------------------------------------------------------")
+    console.log("City: " + response.data[i].venue.city);
+
+    // console.log("---------------------------------------------------------------")
+    // console.log("something agents" + response.Agent._events);
+   
+    // console.log("---------------------------------------------------------------")
+    // console.log("Name of the Movie: " + response.data.Title)
+    // console.log("---------------------------------------------------------------")
+    // console.log("Released Date: " + response.data.Released)
+    // console.log("---------------------------------------------------------------")
+    // console.log("IMDB Rating: " + response.data.Ratings.imdbRating)
+    // console.log("---------------------------------------------------------------")
+    // // console.log("Rotten Tomatoes Rating: " + response.data.Ratings.imdbRating)
+    // console.log("Where it was produced: " + response.data.Country)
+    // console.log("---------------------------------------------------------------")
+    // console.log("Language: " + response.data.Language)
+    // console.log("---------------------------------------------------------------")
+    // console.log("Plot: " + response.data.Plot)
+    // console.log("---------------------------------------------------------------")
+    // console.log("Actors: " + response.data.Actors)
+    // console.log("---------------------------------------------------------------")
+    }
+  })
+  .catch(function (error) {
+    // handle error
+    console.log(error);
+  })
+  .finally(function () {
+    // always executed
+  });
+}
 }
