@@ -17,11 +17,22 @@ spotify(input2)
 }
 
 else if (input == "movie-this") {
+
+  if (input2) {
 movieOrBands(input2)
+  }
+  else if (!input2) {
+    movieOrBands("Mr. Nobody")
+  }
 }
 
 else if (input == "do-what-it-says") {
+  random()
 
+}
+
+function random() {
+  
 }
 
 function spotify(song) {
