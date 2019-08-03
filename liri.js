@@ -1,11 +1,15 @@
 require("dotenv").config();
 var keys = require("./keys.js");
+var fs = require("fs");
+const moment = require("moment")
+
+
 
 
 var input = process.argv[2]
 // var input2 = process.argv[3]
 var input2 = process.argv.slice(3).join(" ");
-console.log(input2)
+
 
 
 if (input == "concert-this") {
@@ -27,12 +31,21 @@ movieOrBands(input2)
 }
 
 else if (input == "do-what-it-says") {
-  random()
+  fs.readFile("random.txt", "utf8", function (error, data) {
+    if (error) {
+      return console.log(error);
+    }
+    let dataArr = data.split(",");
 
+    let input2 = dataArr[1];
+
+ random(input2)
+
+})
 }
 
-function random() {
-  
+function random(input2) {
+  spotify(input2)
 }
 
 function spotify(song) {
@@ -67,6 +80,7 @@ console.log("---------------------------------------------------------------")
 }
 
 function movieOrBands(input2) {
+  
 const axios = require('axios');
 
 // OMDBI
@@ -83,8 +97,8 @@ function movie() {
 
 axios.get("http://www.omdbapi.com/?t=" + input2 + "&apikey=" + omdbiKey)
   .then(function (response) {
-    // handle success
-    // console.log(response);
+
+
     console.log("---------------------------------------------------------------")
     console.log("--------------------------MOVIE--------------------------------")
     console.log("---------------------------------------------------------------")
@@ -92,7 +106,7 @@ axios.get("http://www.omdbapi.com/?t=" + input2 + "&apikey=" + omdbiKey)
     console.log("---------------------------------------------------------------")
     console.log("Released Date: " + response.data.Released)
     console.log("---------------------------------------------------------------")
-    console.log("IMDB Rating: " + response.data.Ratings.imdbRating)
+    console.log("IMDB Rating: " + response.data.imdbRating)
     console.log("---------------------------------------------------------------")
     // console.log("Rotten Tomatoes Rating: " + response.data.Ratings.imdbRating)
     console.log("Where it was produced: " + response.data.Country)
@@ -115,17 +129,20 @@ axios.get("http://www.omdbapi.com/?t=" + input2 + "&apikey=" + omdbiKey)
 
 }
 
+
 function concert() {
   console.log("band call working")
   axios.get("https://rest.bandsintown.com/artists/" + input2 + "/events?app_id=codingbootcamp")
   .then(function (response) {
     // handle success
-    console.log(response.data)
+    // console.log(response.data)
     if (response.data.length == 0) {
         console.log("Sorry, there seems to be no events for that artist. Try a new search!")
     }
     else if (response.data.length > 0) {
     for (i=0; i<response.data.length; i++) {
+
+      
 //  console.log(response.data)
     // console.log("Whole response " + response);
     // console.log("Offers array" + response.data.offers[i]);
@@ -134,7 +151,7 @@ function concert() {
     console.log("---------------------------------------------------------------")
     console.log("Lineup: " + response.data[i].lineup);
     console.log("---------------------------------------------------------------")
-    console.log("Date: " + response.data[i].datetime);
+    console.log("Date: " + moment(response.data[0].datetime).format('MMM Do YYYY'))
     console.log("---------------------------------------------------------------")
     console.log("Venue: " + response.data[i].venue.name);
     console.log("---------------------------------------------------------------")
@@ -152,4 +169,10 @@ function concert() {
     // always executed
   });
 }
+
+
 }
+
+
+
+
