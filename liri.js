@@ -3,7 +3,9 @@ var keys = require("./keys.js");
 
 
 var input = process.argv[2]
-var input2 = process.argv[3]
+// var input2 = process.argv[3]
+var input2 = process.argv.slice(3).join(" ");
+console.log(input2)
 
 
 if (input == "concert-this") {
